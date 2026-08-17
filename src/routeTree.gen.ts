@@ -36,6 +36,16 @@ import { Route as AppHelpOpenrouterApiKeyRouteImport } from './routes/_app/help/
 import { Route as AppHelpDataforseoApiKeyRouteImport } from './routes/_app/help/dataforseo-api-key'
 import { Route as ProjectPProjectIdRouteRouteImport } from './routes/_project/p/$projectId/route'
 import { Route as ProjectPProjectIdIndexRouteImport } from './routes/_project/p/$projectId/index'
+import { Route as ApiRestProjectsListRouteImport } from './routes/api/rest/projects/list'
+import { Route as ApiRestProjectsCreateRouteImport } from './routes/api/rest/projects/create'
+import { Route as ApiRestDomainOverviewRouteImport } from './routes/api/rest/domain/overview'
+import { Route as ApiRestBacklinksProfileRouteImport } from './routes/api/rest/backlinks/profile'
+import { Route as ApiRestBacklinksOverviewRouteImport } from './routes/api/rest/backlinks/overview'
+import { Route as ApiRestAuditsStatusRouteImport } from './routes/api/rest/audits/status'
+import { Route as ApiRestAuditsStartRouteImport } from './routes/api/rest/audits/start'
+import { Route as ApiRestAuditsResultsRouteImport } from './routes/api/rest/audits/results'
+import { Route as ApiRestAuditsHistoryRouteImport } from './routes/api/rest/audits/history'
+import { Route as ApiRestAuditsCrawlProgressRouteImport } from './routes/api/rest/audits/crawl-progress'
 import { Route as ApiGscOauthCallbackRouteImport } from './routes/api/gsc/oauth/callback'
 import { Route as ApiGa4OauthCallbackRouteImport } from './routes/api/ga4/oauth/callback'
 import { Route as ProjectPProjectIdSettingsRouteImport } from './routes/_project/p/$projectId/settings'
@@ -189,6 +199,58 @@ const ProjectPProjectIdIndexRoute = ProjectPProjectIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProjectPProjectIdRouteRoute,
 } as any)
+const ApiRestProjectsListRoute = ApiRestProjectsListRouteImport.update({
+  id: '/api/rest/projects/list',
+  path: '/api/rest/projects/list',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestProjectsCreateRoute = ApiRestProjectsCreateRouteImport.update({
+  id: '/api/rest/projects/create',
+  path: '/api/rest/projects/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestDomainOverviewRoute = ApiRestDomainOverviewRouteImport.update({
+  id: '/api/rest/domain/overview',
+  path: '/api/rest/domain/overview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestBacklinksProfileRoute = ApiRestBacklinksProfileRouteImport.update({
+  id: '/api/rest/backlinks/profile',
+  path: '/api/rest/backlinks/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestBacklinksOverviewRoute =
+  ApiRestBacklinksOverviewRouteImport.update({
+    id: '/api/rest/backlinks/overview',
+    path: '/api/rest/backlinks/overview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiRestAuditsStatusRoute = ApiRestAuditsStatusRouteImport.update({
+  id: '/api/rest/audits/status',
+  path: '/api/rest/audits/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestAuditsStartRoute = ApiRestAuditsStartRouteImport.update({
+  id: '/api/rest/audits/start',
+  path: '/api/rest/audits/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestAuditsResultsRoute = ApiRestAuditsResultsRouteImport.update({
+  id: '/api/rest/audits/results',
+  path: '/api/rest/audits/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestAuditsHistoryRoute = ApiRestAuditsHistoryRouteImport.update({
+  id: '/api/rest/audits/history',
+  path: '/api/rest/audits/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRestAuditsCrawlProgressRoute =
+  ApiRestAuditsCrawlProgressRouteImport.update({
+    id: '/api/rest/audits/crawl-progress',
+    path: '/api/rest/audits/crawl-progress',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiGscOauthCallbackRoute = ApiGscOauthCallbackRouteImport.update({
   id: '/api/gsc/oauth/callback',
   path: '/api/gsc/oauth/callback',
@@ -322,6 +384,16 @@ export interface FileRoutesByFullPath {
   '/p/$projectId/settings': typeof ProjectPProjectIdSettingsRoute
   '/api/ga4/oauth/callback': typeof ApiGa4OauthCallbackRoute
   '/api/gsc/oauth/callback': typeof ApiGscOauthCallbackRoute
+  '/api/rest/audits/crawl-progress': typeof ApiRestAuditsCrawlProgressRoute
+  '/api/rest/audits/history': typeof ApiRestAuditsHistoryRoute
+  '/api/rest/audits/results': typeof ApiRestAuditsResultsRoute
+  '/api/rest/audits/start': typeof ApiRestAuditsStartRoute
+  '/api/rest/audits/status': typeof ApiRestAuditsStatusRoute
+  '/api/rest/backlinks/overview': typeof ApiRestBacklinksOverviewRoute
+  '/api/rest/backlinks/profile': typeof ApiRestBacklinksProfileRoute
+  '/api/rest/domain/overview': typeof ApiRestDomainOverviewRoute
+  '/api/rest/projects/create': typeof ApiRestProjectsCreateRoute
+  '/api/rest/projects/list': typeof ApiRestProjectsListRoute
   '/p/$projectId/': typeof ProjectPProjectIdIndexRoute
   '/p/$projectId/rank-tracking/$configId': typeof ProjectPProjectIdRankTrackingConfigIdRoute
   '/p/$projectId/audit/': typeof ProjectPProjectIdAuditIndexRoute
@@ -361,6 +433,16 @@ export interface FileRoutesByTo {
   '/p/$projectId/settings': typeof ProjectPProjectIdSettingsRoute
   '/api/ga4/oauth/callback': typeof ApiGa4OauthCallbackRoute
   '/api/gsc/oauth/callback': typeof ApiGscOauthCallbackRoute
+  '/api/rest/audits/crawl-progress': typeof ApiRestAuditsCrawlProgressRoute
+  '/api/rest/audits/history': typeof ApiRestAuditsHistoryRoute
+  '/api/rest/audits/results': typeof ApiRestAuditsResultsRoute
+  '/api/rest/audits/start': typeof ApiRestAuditsStartRoute
+  '/api/rest/audits/status': typeof ApiRestAuditsStatusRoute
+  '/api/rest/backlinks/overview': typeof ApiRestBacklinksOverviewRoute
+  '/api/rest/backlinks/profile': typeof ApiRestBacklinksProfileRoute
+  '/api/rest/domain/overview': typeof ApiRestDomainOverviewRoute
+  '/api/rest/projects/create': typeof ApiRestProjectsCreateRoute
+  '/api/rest/projects/list': typeof ApiRestProjectsListRoute
   '/p/$projectId': typeof ProjectPProjectIdIndexRoute
   '/p/$projectId/rank-tracking/$configId': typeof ProjectPProjectIdRankTrackingConfigIdRoute
   '/p/$projectId/audit': typeof ProjectPProjectIdAuditIndexRoute
@@ -408,6 +490,16 @@ export interface FileRoutesById {
   '/_project/p/$projectId/settings': typeof ProjectPProjectIdSettingsRoute
   '/api/ga4/oauth/callback': typeof ApiGa4OauthCallbackRoute
   '/api/gsc/oauth/callback': typeof ApiGscOauthCallbackRoute
+  '/api/rest/audits/crawl-progress': typeof ApiRestAuditsCrawlProgressRoute
+  '/api/rest/audits/history': typeof ApiRestAuditsHistoryRoute
+  '/api/rest/audits/results': typeof ApiRestAuditsResultsRoute
+  '/api/rest/audits/start': typeof ApiRestAuditsStartRoute
+  '/api/rest/audits/status': typeof ApiRestAuditsStatusRoute
+  '/api/rest/backlinks/overview': typeof ApiRestBacklinksOverviewRoute
+  '/api/rest/backlinks/profile': typeof ApiRestBacklinksProfileRoute
+  '/api/rest/domain/overview': typeof ApiRestDomainOverviewRoute
+  '/api/rest/projects/create': typeof ApiRestProjectsCreateRoute
+  '/api/rest/projects/list': typeof ApiRestProjectsListRoute
   '/_project/p/$projectId/': typeof ProjectPProjectIdIndexRoute
   '/_project/p/$projectId/rank-tracking/$configId': typeof ProjectPProjectIdRankTrackingConfigIdRoute
   '/_project/p/$projectId/audit/': typeof ProjectPProjectIdAuditIndexRoute
@@ -452,6 +544,16 @@ export interface FileRouteTypes {
     | '/p/$projectId/settings'
     | '/api/ga4/oauth/callback'
     | '/api/gsc/oauth/callback'
+    | '/api/rest/audits/crawl-progress'
+    | '/api/rest/audits/history'
+    | '/api/rest/audits/results'
+    | '/api/rest/audits/start'
+    | '/api/rest/audits/status'
+    | '/api/rest/backlinks/overview'
+    | '/api/rest/backlinks/profile'
+    | '/api/rest/domain/overview'
+    | '/api/rest/projects/create'
+    | '/api/rest/projects/list'
     | '/p/$projectId/'
     | '/p/$projectId/rank-tracking/$configId'
     | '/p/$projectId/audit/'
@@ -491,6 +593,16 @@ export interface FileRouteTypes {
     | '/p/$projectId/settings'
     | '/api/ga4/oauth/callback'
     | '/api/gsc/oauth/callback'
+    | '/api/rest/audits/crawl-progress'
+    | '/api/rest/audits/history'
+    | '/api/rest/audits/results'
+    | '/api/rest/audits/start'
+    | '/api/rest/audits/status'
+    | '/api/rest/backlinks/overview'
+    | '/api/rest/backlinks/profile'
+    | '/api/rest/domain/overview'
+    | '/api/rest/projects/create'
+    | '/api/rest/projects/list'
     | '/p/$projectId'
     | '/p/$projectId/rank-tracking/$configId'
     | '/p/$projectId/audit'
@@ -537,6 +649,16 @@ export interface FileRouteTypes {
     | '/_project/p/$projectId/settings'
     | '/api/ga4/oauth/callback'
     | '/api/gsc/oauth/callback'
+    | '/api/rest/audits/crawl-progress'
+    | '/api/rest/audits/history'
+    | '/api/rest/audits/results'
+    | '/api/rest/audits/start'
+    | '/api/rest/audits/status'
+    | '/api/rest/backlinks/overview'
+    | '/api/rest/backlinks/profile'
+    | '/api/rest/domain/overview'
+    | '/api/rest/projects/create'
+    | '/api/rest/projects/list'
     | '/_project/p/$projectId/'
     | '/_project/p/$projectId/rank-tracking/$configId'
     | '/_project/p/$projectId/audit/'
@@ -558,6 +680,16 @@ export interface RootRouteChildren {
   ApiAutumnSplatRoute: typeof ApiAutumnSplatRoute
   ApiGa4OauthCallbackRoute: typeof ApiGa4OauthCallbackRoute
   ApiGscOauthCallbackRoute: typeof ApiGscOauthCallbackRoute
+  ApiRestAuditsCrawlProgressRoute: typeof ApiRestAuditsCrawlProgressRoute
+  ApiRestAuditsHistoryRoute: typeof ApiRestAuditsHistoryRoute
+  ApiRestAuditsResultsRoute: typeof ApiRestAuditsResultsRoute
+  ApiRestAuditsStartRoute: typeof ApiRestAuditsStartRoute
+  ApiRestAuditsStatusRoute: typeof ApiRestAuditsStatusRoute
+  ApiRestBacklinksOverviewRoute: typeof ApiRestBacklinksOverviewRoute
+  ApiRestBacklinksProfileRoute: typeof ApiRestBacklinksProfileRoute
+  ApiRestDomainOverviewRoute: typeof ApiRestDomainOverviewRoute
+  ApiRestProjectsCreateRoute: typeof ApiRestProjectsCreateRoute
+  ApiRestProjectsListRoute: typeof ApiRestProjectsListRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -750,6 +882,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/p/$projectId/'
       preLoaderRoute: typeof ProjectPProjectIdIndexRouteImport
       parentRoute: typeof ProjectPProjectIdRouteRoute
+    }
+    '/api/rest/projects/list': {
+      id: '/api/rest/projects/list'
+      path: '/api/rest/projects/list'
+      fullPath: '/api/rest/projects/list'
+      preLoaderRoute: typeof ApiRestProjectsListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/projects/create': {
+      id: '/api/rest/projects/create'
+      path: '/api/rest/projects/create'
+      fullPath: '/api/rest/projects/create'
+      preLoaderRoute: typeof ApiRestProjectsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/domain/overview': {
+      id: '/api/rest/domain/overview'
+      path: '/api/rest/domain/overview'
+      fullPath: '/api/rest/domain/overview'
+      preLoaderRoute: typeof ApiRestDomainOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/backlinks/profile': {
+      id: '/api/rest/backlinks/profile'
+      path: '/api/rest/backlinks/profile'
+      fullPath: '/api/rest/backlinks/profile'
+      preLoaderRoute: typeof ApiRestBacklinksProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/backlinks/overview': {
+      id: '/api/rest/backlinks/overview'
+      path: '/api/rest/backlinks/overview'
+      fullPath: '/api/rest/backlinks/overview'
+      preLoaderRoute: typeof ApiRestBacklinksOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/audits/status': {
+      id: '/api/rest/audits/status'
+      path: '/api/rest/audits/status'
+      fullPath: '/api/rest/audits/status'
+      preLoaderRoute: typeof ApiRestAuditsStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/audits/start': {
+      id: '/api/rest/audits/start'
+      path: '/api/rest/audits/start'
+      fullPath: '/api/rest/audits/start'
+      preLoaderRoute: typeof ApiRestAuditsStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/audits/results': {
+      id: '/api/rest/audits/results'
+      path: '/api/rest/audits/results'
+      fullPath: '/api/rest/audits/results'
+      preLoaderRoute: typeof ApiRestAuditsResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/audits/history': {
+      id: '/api/rest/audits/history'
+      path: '/api/rest/audits/history'
+      fullPath: '/api/rest/audits/history'
+      preLoaderRoute: typeof ApiRestAuditsHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rest/audits/crawl-progress': {
+      id: '/api/rest/audits/crawl-progress'
+      path: '/api/rest/audits/crawl-progress'
+      fullPath: '/api/rest/audits/crawl-progress'
+      preLoaderRoute: typeof ApiRestAuditsCrawlProgressRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/gsc/oauth/callback': {
       id: '/api/gsc/oauth/callback'
@@ -1029,6 +1231,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAutumnSplatRoute: ApiAutumnSplatRoute,
   ApiGa4OauthCallbackRoute: ApiGa4OauthCallbackRoute,
   ApiGscOauthCallbackRoute: ApiGscOauthCallbackRoute,
+  ApiRestAuditsCrawlProgressRoute: ApiRestAuditsCrawlProgressRoute,
+  ApiRestAuditsHistoryRoute: ApiRestAuditsHistoryRoute,
+  ApiRestAuditsResultsRoute: ApiRestAuditsResultsRoute,
+  ApiRestAuditsStartRoute: ApiRestAuditsStartRoute,
+  ApiRestAuditsStatusRoute: ApiRestAuditsStatusRoute,
+  ApiRestBacklinksOverviewRoute: ApiRestBacklinksOverviewRoute,
+  ApiRestBacklinksProfileRoute: ApiRestBacklinksProfileRoute,
+  ApiRestDomainOverviewRoute: ApiRestDomainOverviewRoute,
+  ApiRestProjectsCreateRoute: ApiRestProjectsCreateRoute,
+  ApiRestProjectsListRoute: ApiRestProjectsListRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
