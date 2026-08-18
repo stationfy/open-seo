@@ -7,7 +7,7 @@ Arena's fork of the open-source **OpenSEO** ("open source alternative to Semrush
 - **Produced by:** [WID-2962](https://linear.app/arena/issue/WID-2962)
 - **Consumed by:** WID-2805 (Arena-controlled exposure layer)
 
-> [!UwarningE] Deployment constraint for WID-2805
+> [!WARNING] Deployment constraint for WID-2805
 > This app is not a plain Node service. `import { env } from "cloudflare:workers"` is load-bearing throughout, and Site Audit depends on **Cloudflare Workflows** (`SITE_AUDIT_WORKFLOW`) plus a **Durable Object** (`AUDIT_SCRATCHPAD`). Arena must run it on Cloudflare Workers or the workerd-based Docker image — **not** plain ECS/Lambda.
 
 ---
@@ -16,7 +16,7 @@ Arena's fork of the open-source **OpenSEO** ("open source alternative to Semrush
 
 Upstream defaults to Cloudflare D1. Postgres is opt-in and reachable **only** through the `HYPERDRIVE` binding — `src/db/provider.ts` throws if it is absent, and there is no direct-connection fallback.
 
-> [!UnoteE] `docker compose up` will not satisfy a Postgres requirement
+> [!NOTE] `docker compose up` will not satisfy a Postgres requirement
 > `compose.yaml` runs the D1 path (its only volume is miniflare state). Postgres requires the `pnpm dev` path.
 
 ```sh
@@ -40,7 +40,7 @@ pnpm dev   # http://localhost:3001
 
 Verify with `curl localhost:3001/api/health` → `authMode: "local_noauth"`, `dataforseo: "Set"`, `database: "ok"`.
 
-> [!UimportantE] DataForSEO is a hard dependency
+> [!IMPORTANT] DataForSEO is a hard dependency
 > All three analyses proxy DataForSEO and **cost real money per call**. Domain Overview is ~100–300 credits and cached 12h per domain.
 
 ---
@@ -164,7 +164,7 @@ status: text("status", { enum: ["running", "completed", "failed"] })
 
 Results land in `audit_pages`, `audit_issues`, and `audit_lighthouse_results` (all FK → `audits.id`, `ON DELETE CASCADE`).
 
-> [!UimportantE] Poll the status endpoint, not the database
+> [!IMPORTANT] Poll the status endpoint, not the database
 > `AuditService.getStatus` **lazily reconciles** an audit whose Workflow instance died without marking itself failed (platform OOM, CPU limit, deploy reset, retention expiry). A caller that polls the `audits` row directly bypasses that self-healing and can sit on a zombie `running` row until the cron watchdog sweeps it.
 >
 > The watchdog (`reconcileStaleAudits`, cron `*/5 * * * *`) only considers audits **running longer than 15 minutes** (`STALE_RUNNING_AFTER_MS`), with a 10-minute grace before an instance counts as lost (`INSTANCE_LOST_GRACE_MS`). So the worst case for DB-only polling is a ~15-minute hang; the status endpoint resolves it on the next poll.
@@ -175,9 +175,9 @@ Recommended polling loop: `POST /api/rest/audits/start` → poll `/api/rest/audi
 
 ## The REST API (added for WID-2962)
 
-Ten routes under `/api/rest/`, added in the fork. They call the **same services** the server functions call, so behavior and payloads are identical.
+Ten routes under `/api/rest/`, added in the fork. They call the **same services** the server functions call, so the analysis data they return is identical. The transport differs: a plain JSON `POST` returning a `{"data": ...}` envelope, rather than `/_serverFn/<base64url>` returning a seroval-encoded `{result, error, context}`.
 
-> [!UcautionE] Gated to `local_noauth`
+> [!CAUTION] Gated to `local_noauth`
 > Every route returns **403 FORBIDDEN** unless `AUTH_MODE=local_noauth`. The gate runs _before_ body parsing, so a disabled instance returns a uniform 403 and never reveals route behavior. A deploy that flips `AUTH_MODE` disables the whole surface automatically.
 
 All routes are `POST` with a JSON body — deliberately mirroring the internal server functions 1:1 rather than inventing a REST shape. WID-2805's exposure layer is the right place to present a friendlier contract.
@@ -222,8 +222,22 @@ A=$(curl -s -X POST $B/audits/start -H 'content-type: application/json' \
   -d "{\"projectId\":\"$P\",\"startUrl\":\"https://arena.im\",\"maxPages\":10,\"lighthouseStrategy\":\"none\"}" \
   | sed -n 's/.*"auditId":"\([^"]*\)".*/\1/p')
 
-curl -s -X POST $B/audits/status  -H 'content-type: application/json' -d "{\"projectId\":\"$P\",\"auditId\":\"$A\"}"
-curl -s -X POST $B/audits/results -H 'content-type: application/json' -d "{\"projectId\":\"$P\",\"auditId\":\"$A\"}"
+# startAudit is async: poll until the status leaves "running".
+while :; do
+  STATUS=$(curl -s -X POST $B/audits/status -H 'content-type: application/json' \
+    -d "{\"projectId\":\"$P\",\"auditId\":\"$A\"}" \
+    | sed -n 's/.*"status":"\([^"]*\)".*/\1/p')
+  [ "$STATUS" = "running" ] || break
+  sleep 2
+done
+
+# Only "completed" has results; "failed" carries errorCode/errorDetail instead.
+if [ "$STATUS" = "completed" ]; then
+  curl -s -X POST $B/audits/results -H 'content-type: application/json' \
+    -d "{\"projectId\":\"$P\",\"auditId\":\"$A\"}"
+else
+  echo "audit did not complete: $STATUS"
+fi
 ```
 
 ---
@@ -249,7 +263,7 @@ All MCP tools go through `withMcpProjectAuth`, which authorizes `projectId` agai
 
 Setup: in-app **AI & MCP** page, or `https://openseo.so/docs/mcp`.
 
-> [!UtipE] Why REST exists anyway
+> [!TIP] Why REST exists anyway
 > Arena's services (NestJS / Lambda) speak plain HTTP, not MCP transports, and WID-2805 needs a stable contract boundary it can version independently of upstream. MCP remains the better door for agents.
 
 ---
