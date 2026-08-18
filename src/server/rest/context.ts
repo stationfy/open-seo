@@ -82,7 +82,8 @@ function assertRestApiEnabled(): void {
  */
 function assertJsonContentType(request: Request): void {
   const contentType = request.headers.get("content-type") ?? "";
-  if (!contentType.toLowerCase().includes("application/json")) {
+  const mediaType = contentType.split(";", 1)[0]?.trim().toLowerCase();
+  if (mediaType !== "application/json") {
     throw new AppError(
       "VALIDATION_ERROR",
       "Content-Type must be application/json.",
